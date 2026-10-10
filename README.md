@@ -45,6 +45,28 @@ npm start
 
 `npm run build` writes the Electron main, preload, and renderer bundles to `out/`. `npm start` launches those built bundles; run the build first.
 
+## Build desktop installers
+
+Create an installer for the current computer's platform and architecture:
+
+```sh
+npm run build:dist
+```
+
+Installers are written to `release/`. Windows builds an NSIS installer, macOS builds a DMG and ZIP, and Linux builds an AppImage and DEB package. These builds are unsigned; macOS may require approval in System Settings before the app can be opened.
+
+## Publish a GitHub release
+
+Push a version tag to build and publish installers for Windows, macOS, and Linux:
+
+```sh
+# First set the version in package.json to the version being released.
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+The GitHub Actions release workflow builds each platform, attaches the installers, and generates release notes. Replace `v0.1.0` with the version being released.
+
 ## Run in Docker
 
 The Docker image installs the Linux desktop libraries and virtual display, installs the npm dependencies with `npm ci`, and type-checks/builds the application. Compose launches Environ in a virtual desktop and serves it through noVNC.

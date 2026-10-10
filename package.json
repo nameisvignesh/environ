@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "electron-vite dev",
     "build": "electron-vite build",
+    "build:dist": "npm run build && electron-builder --publish never",
     "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json",
     "start": "electron ."
   },
@@ -21,8 +22,43 @@
     "@types/react-dom": "^19.1.0",
     "@vitejs/plugin-react": "^4.4.1",
     "electron": "^36.2.0",
+    "electron-builder": "^26.15.3",
     "electron-vite": "^3.0.0",
     "typescript": "^5.8.3",
     "vite": "^6.3.5"
+  },
+  "build": {
+    "appId": "com.nameisvignesh.environ",
+    "productName": "Environ",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "out/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "linux": {
+      "category": "Development;IDE;",
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    }
   }
 }
