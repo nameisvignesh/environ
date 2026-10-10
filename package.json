@@ -55,6 +55,7 @@
     },
     "linux": {
       "category": "Development;IDE;",
+      "maintainer": "nameisvignesh",
       "target": [
         "AppImage",
         "deb"
