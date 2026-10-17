@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Environ logo</title>
+  <desc id="desc">A rounded green square containing a dark italic letter e.</desc>
+  <rect width="256" height="256" rx="64" fill="#91c6ae"/>
+  <text x="128" y="178" text-anchor="middle" font-family="Georgia, serif" font-size="168" font-style="italic" font-weight="700" fill="#101915">e</text>
+</svg>

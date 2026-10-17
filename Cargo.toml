@@ -1,0 +1,17 @@
+[package]
+name = "environ"
+version = "0.2.0"
+edition = "2024"
+description = "A focused, Rust-native desktop code editor."
+license = "MIT"
+authors = ["Vignesh"]
+
+[dependencies]
+eframe = "0.33"
+rfd = "0.17"
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
+strip = true
+
