@@ -239,7 +239,7 @@ impl EnvironApp {
         self.confirm_close = None;
         self.active_tab = match self.active_tab {
             None => None,
-            Some(active) if self.tabs.is_empty() => None,
+            Some(_) if self.tabs.is_empty() => None,
             Some(active) if active > index => Some(active - 1),
             Some(active) if active == index => Some(active.min(self.tabs.len() - 1)),
             Some(active) => Some(active),
@@ -307,7 +307,7 @@ impl EnvironApp {
             .frame(
                 egui::Frame::NONE
                     .fill(PANEL_BG)
-                    .stroke(egui::Stroke::new(1.0, BORDER)),
+                    .stroke(egui::Stroke::new(1.0_f32, BORDER)),
             )
             .show(ctx, |ui| {
                 ui.add_space(4.0);
@@ -355,7 +355,7 @@ impl EnvironApp {
             .frame(
                 egui::Frame::NONE
                     .fill(PANEL_BG)
-                    .stroke(egui::Stroke::new(1.0, BORDER)),
+                    .stroke(egui::Stroke::new(1.0_f32, BORDER)),
             )
             .show(ctx, |ui| {
                 ui.horizontal(|ui| {
@@ -532,23 +532,23 @@ impl EnvironApp {
                                     .small()
                                     .color(Color32::from_rgb(237, 155, 145)),
                             );
-                        } else if let Some(index) = self.active_tab {
-                            if let Some(tab) = self.tabs.get(index) {
-                                ui.label(
-                                    RichText::new(if tab.dirty() {
-                                        "Unsaved changes"
-                                    } else {
-                                        "Saved"
-                                    })
+                        } else if let Some(index) = self.active_tab
+                            && let Some(tab) = self.tabs.get(index)
+                        {
+                            ui.label(
+                                RichText::new(if tab.dirty() {
+                                    "Unsaved changes"
+                                } else {
+                                    "Saved"
+                                })
+                                .small()
+                                .color(Color32::from_rgb(192, 210, 199)),
+                            );
+                            ui.label(
+                                RichText::new(format!("{} chars", tab.content.chars().count()))
                                     .small()
-                                    .color(Color32::from_rgb(192, 210, 199)),
-                                );
-                                ui.label(
-                                    RichText::new(format!("{} chars", tab.content.chars().count()))
-                                        .small()
-                                        .color(MUTED),
-                                );
-                            }
+                                    .color(MUTED),
+                            );
                         }
                         ui.label(
                             RichText::new("Environ 0.2")
