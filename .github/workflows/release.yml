@@ -91,6 +91,7 @@ jobs:
           mkdir -p release/Environ-${{ github.ref_name }}-${{ matrix.name }}
           cp target/release/environ release/Environ-${{ github.ref_name }}-${{ matrix.name }}/environ
           tar -czf release/Environ-${{ github.ref_name }}-${{ matrix.name }}.tar.gz -C release Environ-${{ github.ref_name }}-${{ matrix.name }}
+          rm -rf release/Environ-${{ github.ref_name }}-${{ matrix.name }}
 
       - name: Upload packaged artifact
         uses: actions/upload-artifact@v4
@@ -116,7 +117,7 @@ jobs:
 
       - name: Generate checksums
         working-directory: release
-        run: sha256sum * > SHA256SUMS
+        run: find . -maxdepth 1 -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
 
       - name: Publish release assets
         uses: softprops/action-gh-release@v2
